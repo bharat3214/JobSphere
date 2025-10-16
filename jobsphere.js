@@ -2,6 +2,12 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error('Missing Supabase environment variables. Please check your .env file.');
+  alert('Application configuration error. Please contact support.');
+}
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 let selectedUserType = 'jobseeker';
@@ -29,7 +35,12 @@ function selectUserType(type) {
 
   const options = document.querySelectorAll('.user-type-option');
   options.forEach(opt => opt.classList.remove('selected'));
-  event.target.closest('.user-type-option').classList.add('selected');
+  
+  // Find the clicked option by data attribute or type
+  const clickedOption = document.querySelector(`.user-type-option[onclick="selectUserType('${type}')"]`);
+  if (clickedOption) {
+    clickedOption.classList.add('selected');
+  }
 
   const companyNameGroup = document.getElementById('companyNameGroup');
   const skillsGroup = document.getElementById('skillsGroup');
