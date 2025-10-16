@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobSphere - Connect, Apply, Hire</title>
+  <link rel="stylesheet" href="jobsphere.css">
+</head>
+<body>
+  <div class="landing">
+    <div class="landing-content">
+      <h1>Welcome to JobSphere</h1>
+      <p>The modern platform connecting talented job seekers with leading companies. Find your dream job or discover your next star employee.</p>
+
+      <div class="landing-buttons">
+        <button class="btn btn-primary btn-lg" onclick="showLoginModal()">Login</button>
+        <button class="btn btn-secondary btn-lg" onclick="showRegisterModal()">Register</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
+      <h2 class="modal-header">Login to JobSphere</h2>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" required placeholder="Enter your password">
+        </div>
+        <div id="loginError" class="alert alert-error hidden"></div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">Login</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal('loginModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('registerModal')">&times;</span>
+      <h2 class="modal-header">Create Your Account</h2>
+
+      <div class="user-type-selector">
+        <div class="user-type-option selected" onclick="selectUserType('jobseeker')">
+          <h3>Job Seeker</h3>
+          <p>Find your dream job</p>
+        </div>
+        <div class="user-type-option" onclick="selectUserType('company')">
+          <h3>Company</h3>
+          <p>Hire top talent</p>
+        </div>
+      </div>
+
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <input type="hidden" id="userType" value="jobseeker">
+
+        <div class="form-group">
+          <label for="registerName">Full Name <span id="nameLabel"></span></label>
+          <input type="text" id="registerName" required placeholder="John Doe">
+        </div>
+
+        <div class="form-group" id="companyNameGroup" style="display: none;">
+          <label for="companyName">Company Name</label>
+          <input type="text" id="companyName" placeholder="Acme Corporation">
+        </div>
+
+        <div class="form-group">
+          <label for="registerEmail">Email Address</label>
+          <input type="email" id="registerEmail" required placeholder="your@email.com">
+        </div>
+
+        <div class="form-group">
+          <label for="registerPassword">Password</label>
+          <input type="password" id="registerPassword" required placeholder="Minimum 6 characters" minlength="6">
+        </div>
+
+        <div class="form-group" id="skillsGroup">
+          <label for="skills">Your Skills (comma separated)</label>
+          <input type="text" id="skills" placeholder="JavaScript, React, Node.js, Python">
+        </div>
+
+        <div class="form-group" id="experienceGroup">
+          <label for="experience">Experience</label>
+          <textarea id="experience" placeholder="Describe your experience..."></textarea>
+        </div>
+
+        <div id="registerError" class="alert alert-error hidden"></div>
+        <div id="registerSuccess" class="alert alert-success hidden"></div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">Create Account</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal('registerModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="jobsphere.js"></script>
+</body>
+</html>

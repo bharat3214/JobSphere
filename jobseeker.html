@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Seeker Dashboard - JobSphere</title>
+  <link rel="stylesheet" href="jobsphere.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="jobsphere.html" class="navbar-brand">JobSphere</a>
+      <div class="navbar-links">
+        <a href="jobseeker.html">Home</a>
+        <a href="#" onclick="showBrowseJobs()">Browse Jobs</a>
+        <a href="#" onclick="showApplications()">My Applications</a>
+        <a href="#" onclick="showProfile()">Profile</a>
+        <button class="btn btn-sm btn-secondary" onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div id="mainContent">
+      <div class="dashboard-header">
+        <h1>Welcome back, <span id="userName">User</span>!</h1>
+        <p>Your career journey continues here</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3 id="appliedCount">0</h3>
+          <p>Applications Submitted</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="reviewCount">0</h3>
+          <p>In Review</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="shortlistedCount">0</h3>
+          <p>Shortlisted</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Recommended Jobs Based on Your Skills</h2>
+        <div id="recommendedJobs" class="grid grid-2">
+          <div class="loading">Loading recommended jobs...</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="browseJobsContent" class="hidden">
+      <h2 style="margin-bottom: 1.5rem;">Browse All Jobs</h2>
+
+      <div class="search-filter-bar">
+        <input type="text" id="jobSearchInput" class="search-input" placeholder="Search jobs by title or company..." onkeyup="filterJobs()">
+        <select id="jobTypeFilter" class="filter-select" onchange="filterJobs()">
+          <option value="">All Job Types</option>
+          <option value="Full-time">Full-time</option>
+          <option value="Part-time">Part-time</option>
+          <option value="Internship">Internship</option>
+          <option value="Contract">Contract</option>
+        </select>
+        <select id="locationFilter" class="filter-select" onchange="filterJobs()">
+          <option value="">All Locations</option>
+          <option value="Remote">Remote</option>
+          <option value="On-site">On-site</option>
+          <option value="Hybrid">Hybrid</option>
+        </select>
+      </div>
+
+      <div id="allJobsList" class="grid grid-2">
+        <div class="loading">Loading jobs...</div>
+      </div>
+    </div>
+
+    <div id="applicationsContent" class="hidden">
+      <h2 style="margin-bottom: 1.5rem;">My Applications</h2>
+
+      <div class="search-filter-bar">
+        <select id="statusFilter" class="filter-select" onchange="filterApplications()">
+          <option value="">All Statuses</option>
+          <option value="Applied">Applied</option>
+          <option value="In Review">In Review</option>
+          <option value="Shortlisted">Shortlisted</option>
+          <option value="Rejected">Rejected</option>
+          <option value="Accepted">Accepted</option>
+        </select>
+      </div>
+
+      <div id="applicationsList">
+        <div class="loading">Loading applications...</div>
+      </div>
+    </div>
+
+    <div id="profileContent" class="hidden">
+      <div class="profile-section">
+        <h2>Your Profile</h2>
+        <form id="profileForm" onsubmit="updateProfile(event)">
+          <div class="form-group">
+            <label for="profileName">Full Name</label>
+            <input type="text" id="profileName" required>
+          </div>
+          <div class="form-group">
+            <label for="profileEmail">Email (cannot be changed)</label>
+            <input type="email" id="profileEmail" disabled>
+          </div>
+          <div class="form-group">
+            <label for="profileSkills">Your Skills (comma separated)</label>
+            <input type="text" id="profileSkills" placeholder="JavaScript, Python, React">
+          </div>
+          <div class="form-group">
+            <label for="profileExperience">Experience</label>
+            <textarea id="profileExperience" placeholder="Describe your experience..."></textarea>
+          </div>
+          <div id="profileSuccess" class="alert alert-success hidden"></div>
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="applyModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('applyModal')">&times;</span>
+      <h2 class="modal-header">Apply for Position</h2>
+      <div id="applyJobDetails"></div>
+      <div id="applySuccess" class="alert alert-success hidden"></div>
+      <div id="applyError" class="alert alert-error hidden"></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="submitApplication()">Confirm Application</button>
+        <button class="btn btn-secondary" onclick="closeModal('applyModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="jobseeker.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Dashboard - JobSphere</title>
+  <link rel="stylesheet" href="jobsphere.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="jobsphere.html" class="navbar-brand">JobSphere</a>
+      <div class="navbar-links">
+        <a href="company.html">Dashboard</a>
+        <a href="#" onclick="showApplicationsManager()">Applications</a>
+        <a href="#" onclick="showPostJob()">Post Job</a>
+        <a href="#" onclick="showMyJobs()">My Jobs</a>
+        <button class="btn btn-sm btn-secondary" onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div id="mainContent">
+      <div class="dashboard-header">
+        <h1>Welcome, <span id="companyName">Company</span>!</h1>
+        <p>Manage your job postings and applicants</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3 id="totalJobs">0</h3>
+          <p>Active Job Postings</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="totalApplicants">0</h3>
+          <p>Total Applicants</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="pendingReview">0</h3>
+          <p>Pending Review</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Recent Activity</h2>
+        <div id="recentActivity">
+          <p class="text-light">Your recent applications will appear here</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="applicationsContent" class="hidden">
+      <h2 style="margin-bottom: 1.5rem;">Applications Manager</h2>
+
+      <div class="search-filter-bar">
+        <input type="text" id="applicantSearch" class="search-input" placeholder="Search by applicant name or skills..." onkeyup="filterApplicants()">
+        <select id="jobFilterSelect" class="filter-select" onchange="filterApplicants()">
+          <option value="">All Jobs</option>
+        </select>
+        <select id="statusFilterSelect" class="filter-select" onchange="filterApplicants()">
+          <option value="">All Statuses</option>
+          <option value="Applied">Applied</option>
+          <option value="In Review">In Review</option>
+          <option value="Shortlisted">Shortlisted</option>
+          <option value="Rejected">Rejected</option>
+          <option value="Accepted">Accepted</option>
+        </select>
+        <button class="btn btn-sm btn-primary" onclick="autoFilterApplicants()">Auto-Filter by Skills</button>
+      </div>
+
+      <div id="applicantsList">
+        <div class="loading">Loading applications...</div>
+      </div>
+    </div>
+
+    <div id="postJobContent" class="hidden">
+      <div class="profile-section">
+        <h2>Post a New Job</h2>
+        <form id="postJobForm" onsubmit="handlePostJob(event)">
+          <div class="form-group">
+            <label for="jobTitle">Job Title</label>
+            <input type="text" id="jobTitle" required placeholder="e.g., Senior React Developer">
+          </div>
+          <div class="form-group">
+            <label for="jobDescription">Job Description</label>
+            <textarea id="jobDescription" required placeholder="Describe the role, responsibilities, and requirements..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="requiredSkills">Required Skills (comma separated)</label>
+            <input type="text" id="requiredSkills" required placeholder="React, JavaScript, Node.js, MongoDB">
+          </div>
+          <div class="form-group">
+            <label for="jobLocation">Location</label>
+            <select id="jobLocation" required>
+              <option value="Remote">Remote</option>
+              <option value="On-site">On-site</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="jobType">Job Type</label>
+            <select id="jobType" required>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Internship">Internship</option>
+              <option value="Contract">Contract</option>
+            </select>
+          </div>
+          <div id="postJobSuccess" class="alert alert-success hidden"></div>
+          <div id="postJobError" class="alert alert-error hidden"></div>
+          <button type="submit" class="btn btn-primary">Post Job</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="myJobsContent" class="hidden">
+      <h2 style="margin-bottom: 1.5rem;">My Job Postings</h2>
+      <div id="myJobsList" class="grid grid-2">
+        <div class="loading">Loading your jobs...</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="viewApplicantModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('viewApplicantModal')">&times;</span>
+      <h2 class="modal-header">Applicant Details</h2>
+      <div id="applicantDetails"></div>
+    </div>
+  </div>
+
+  <script type="module" src="company.js"></script>
+</body>
+</html>
